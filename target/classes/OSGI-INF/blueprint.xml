@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- <beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:osgi="http://www.springframework.org/schema/osgi" xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/osgi 
+	http://www.springframework.org/schema/osgi/spring-osgi.xsd http://camel.apache.org/schema/spring 
+	http://camel.apache.org/schema/spring/camel-spring.xsd"> spring transaction 
+	manager <bean class="org.springframework.jdbc.datasource.DataSourceTransactionManager" 
+	id="txManager"> <property name="dataSource" ref="dataSource"/> </bean> datasource 
+	to the database <bean class="org.springframework.jdbc.datasource.SimpleDriverDataSource" 
+	id="dataSource"> <property name="driverClass" value="org.hsqldb.jdbc.JDBCDriver"/> 
+	<property name="url" value="jdbc:hsqldb:hsql://localhost:9001"/> <property 
+	name="username" value="sa"/> <property name="password" value=""/> </bean> 
+	<osgi:service ref="dataSource" interface="javax.sql.DataSource"> <osgi:service-properties> 
+	<entry key="osgi.jndi.service.name" value="jdbc/hsqlDB"/> <entry key="service.name" 
+	value="sampleDbservice"/> </osgi:service-properties> </osgi:service> </beans> -->
+
+
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.osgi.org/xmlns/blueprint/v1.0.0"
+	>
+
+	<bean
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager"
+		id="txManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	<!-- datasource to the database -->
+	<bean class="org.springframework.jdbc.datasource.SimpleDriverDataSource"
+		id="dataSource">
+		<property name="driverClass" value="org.hsqldb.jdbc.JDBCDriver" />
+		<property name="url" value="jdbc:hsqldb:hsql://localhost:9001" />
+		<property name="username" value="sa" />
+		<property name="password" value="" />
+	</bean>
+
+<!-- <osgi:service ref="dataSource" interface="javax.sql.DataSource" Id="sampleDb">
+	<osgi:service-properties>
+		<entry key="osgi.jndi.service.name" value="jdbc/hsqlDB" />
+		<entry key="service.name" value="sampleDbservice" />
+	</osgi:service-properties>
+</osgi:service> 
+ -->
+	 <service ref="dataSource" interface="javay.sql.DataSource">
+		<service-properties>
+			<entry key="osgi.jndi.service.name" value="jdbc/hsqlDB" />
+			<entry key="service.name" value="sampleDbservice" />
+		</service-properties>
+	</service> 
+
+
+</blueprint>
